@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PS Loan App</string>
+    <string name="step_one">Step 1</string>
+    <string name="step_contact_desc">Fetching Top Contacts</string>
+    <string name="step_sms_desc">Processing SMS</string>
+    <string name="step_action_next">Next</string>
+    <string name="step_action_retry">Retry</string>
+    <string name="step_action_back">Back</string>
+    <string name="step_action_process">Process</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
