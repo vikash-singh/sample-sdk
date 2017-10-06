@@ -63,14 +63,6 @@ public class SMSFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param name Parameter 1.
-     * @param userId Parameter 2.
-     * @return A new instance of fragment SMSFragment.
-     */
     public static SMSFragment newInstance(FragmentManager fragmentManager, String name, String userId) {
         SMSFragment fragment = (SMSFragment) fragmentManager
                 .findFragmentByTag(SMSFragment.TAG);
@@ -114,13 +106,6 @@ public class SMSFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sms, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(ResponseCode code, String applicationId, String message) {
-        if (mListener != null) {
-            mListener.onFinish(code, applicationId, message);
-        }
     }
 
     @Override
@@ -290,6 +275,7 @@ public class SMSFragment extends Fragment {
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setCancelable(false)
                             .show();
                 } else {
                     //Never ask again selected, or device policy prohibits the app from having that permission.

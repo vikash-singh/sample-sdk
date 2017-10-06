@@ -299,6 +299,7 @@ public class ContactFragment extends Fragment {
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setCancelable(false)
                             .show();
                 } else {
                     finish(ResponseCode.USER_EXIT, null, "Please go to Settings->Permission and grant Read Contact and Call Log Permission to proceed further.");
