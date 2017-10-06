@@ -23,8 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.gopaysense.psdata.LoanApplicationActivity;
 import com.gopaysense.psdata.R;
-import com.gopaysense.psdata.core.ContactsProvider;
-import com.gopaysense.psdata.core.ServerUtil;
+import com.gopaysense.psdata.core.ContactsAndCallProvider;
 import com.gopaysense.psdata.core.TopContactsHelper;
 import com.gopaysense.psdata.core.Utils;
 import com.gopaysense.psdata.models.CallLog;
@@ -34,7 +33,6 @@ import com.gopaysense.psdata.nao.ResponseCode;
 import com.gopaysense.psdata.nao.ResultNAO;
 import com.gopaysense.psdata.ui.ContactAdapter;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -206,7 +204,7 @@ public class ContactFragment extends Fragment {
         @Override
         protected ResultNAO<List<UserContactFeature>> doInBackground(String[] params) {
             try {
-                ContactsProvider contactsProvider = new ContactsProvider(getContext());
+                ContactsAndCallProvider contactsProvider = new ContactsAndCallProvider(getContext());
                 List<CallLog> callLogs = contactsProvider.getCallDetails();
                 List<UserContact> contacts = contactsProvider.getContacts(true);
 

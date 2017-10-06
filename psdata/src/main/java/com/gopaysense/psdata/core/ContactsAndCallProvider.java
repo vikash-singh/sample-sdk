@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Vikash Singh on 5/10/17.
  */
 
-public class ContactsProvider {
+public class ContactsAndCallProvider {
 
     private final Uri QUERY_URI = ContactsContract.Contacts.CONTENT_URI;
     private final String CONTACT_ID = ContactsContract.Contacts._ID;
@@ -39,7 +39,7 @@ public class ContactsProvider {
 
     private ContentResolver contentResolver;
 
-    public ContactsProvider(Context context) {
+    public ContactsAndCallProvider(Context context) {
         contentResolver = context.getContentResolver();
     }
 
