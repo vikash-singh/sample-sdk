@@ -82,7 +82,7 @@ public class TopContactsHelper {
         addClosenessScore(featureMap);
         normalizeScore(featureMap);
 
-//        print("+919100644824", featureMap);
+//        print("+917881126312", featureMap);
 
         Collections.sort(features, new ContactSortByScore());
         if (features.size() >= 50)
@@ -153,6 +153,16 @@ public class TopContactsHelper {
         return features;
     }
 
+    /**
+     * Remove Call Log When
+     * - Duration is 0 sec
+     * - Call is Year Old
+     * - Toll Free No
+     * - Number doesn't exist in Address Book
+     *
+     * @param featureMap
+     * @param logs
+     */
     private void cleanup(Map<String, UserContactFeature> featureMap, List<CallLog> logs) {
 
         Long year = 365L*24L*60L*60L*1000L;
@@ -194,6 +204,13 @@ public class TopContactsHelper {
         Integer times = 0;
     }
 
+    /**
+     *
+     * Remove Spam Caller (if No is in Address Book)
+     * Though we could have avoided it
+     *
+     * @param logs
+     */
     private void removeSpam(List<CallLog> logs) {
         Iterator<CallLog> ite = logs.iterator();
         Map<String, CallFrequency> frequencyMap = new HashMap<>();
@@ -259,6 +276,12 @@ public class TopContactsHelper {
         }
     }
 
+    /**
+     * Call made in middle of night gets extra weight
+     *
+     * @param log
+     * @return
+     */
     private double getTimestampMultiplier(CallLog log) {
         double timestampMultiplier = 1.0;
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("IST"));
@@ -282,6 +305,12 @@ public class TopContactsHelper {
         return timestampMultiplier;
     }
 
+    /**
+     * If contact is marked favorite, it is favourite. PERIOD.
+     * If contact is saved on First name basis, it indicates closeness
+     *
+     * @param contacts
+     */
     private void addClosenessScore(Map<String, UserContactFeature> contacts) {
 
         for (UserContactFeature c : contacts.values()) {
@@ -313,6 +342,13 @@ public class TopContactsHelper {
         }
     }
 
+    /**
+     * Normalizing score of Closeness, Call Duration, Frequency
+     *
+     * Bit Ugly but gets job done
+     *
+     * @param contacts
+     */
     private void normalizeScore(Map<String, UserContactFeature> contacts) {
 
         Integer maxClosenessScore = -1, minClosenessScore = -1;

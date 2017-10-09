@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
-import android.provider.BaseColumns;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
@@ -22,7 +20,7 @@ import java.util.List;
  * Created by Vikash Singh on 5/10/17.
  */
 
-public class ContactsAndCallProvider {
+public class ContactAndCallProvider {
 
     private final Uri QUERY_URI = ContactsContract.Contacts.CONTENT_URI;
     private final String CONTACT_ID = ContactsContract.Contacts._ID;
@@ -39,7 +37,7 @@ public class ContactsAndCallProvider {
 
     private ContentResolver contentResolver;
 
-    public ContactsAndCallProvider(Context context) {
+    public ContactAndCallProvider(Context context) {
         contentResolver = context.getContentResolver();
     }
 
@@ -73,6 +71,9 @@ public class ContactsAndCallProvider {
         UserContact contact = new UserContact();
         contact.setId(contactId);
         contact.setName(name);
+        if (name != null && name.equals("MIL")) {
+            contact.setName(name);
+        }
         contact.setUriString(intentUriString);
         contact.setStarred(starredContact);
         contact.setPinned(pinned);
@@ -104,7 +105,7 @@ public class ContactsAndCallProvider {
             return;
         while (phoneCursor.moveToNext()) {
             String phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(PHONE_NUMBER));
-            contact.addContact(PhoneNumberUtils.format(phoneNumber));
+            contact.addContact(Utils.normalizePhoneNumber(phoneNumber));
         }
         phoneCursor.close();
     }
@@ -143,7 +144,7 @@ public class ContactsAndCallProvider {
                     break;
             }
 
-            logs.add(new com.gopaysense.psdata.models.CallLog(PhoneNumberUtils.format(phNumber), dir, callDate, callDuration));
+            logs.add(new com.gopaysense.psdata.models.CallLog(Utils.normalizePhoneNumber(phNumber), dir, callDate, callDuration));
         }
 
         managedCursor.close();
